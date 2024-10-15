@@ -1,10 +1,10 @@
 {
-  "name": "puppetlabs-terraform",
-  "version": "0.7.1",
+  "name": "rethinc-terraform",
+  "version": "0.1.0",
   "author": "Puppet, Inc.",
   "summary": "A task to generate Bolt inventory from Terraform statefiles",
   "license": "Apache-2.0",
-  "source": "https://github.com/puppetlabs/puppetlabs-terraform",
+  "source": "https://github.com/rethinc-oss/rethinc-terraform",
   "dependencies": [
     {
       "name": "puppetlabs-ruby_task_helper",

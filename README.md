@@ -42,6 +42,8 @@ groups:
         resource_type: aws_instance.web
         target_mapping:
           uri: public_ip
+        regex_mapping:
+          uri: <REGEX>
 ```
 
 Multiple resources with the same name are identified as <resource>.0, <resource>.1, etc.
@@ -49,6 +51,8 @@ Multiple resources with the same name are identified as <resource>.0, <resource>
 The path to nested properties must be separated with `.`: for example, `network_interface.0.access_config.0.nat_ip`.
 
 For example, the following truncated output creates two targets, named `34.83.150.52` and `34.83.16.240`. These targets are created by matching the resources `google_compute_instance.web.0` and `google_compute_instance.web.1`. The `uri` for each target is the value of their `network_interface.0.access_config.0.nat_ip` property, which corresponds to the externally routable IP address in Google Cloud.
+
+If a regex is specified for a mapping, the regex is applied to the mapped target value and the value is replaced by the first match.
 
 ```
 google_compute_instance.web.0:

@@ -20,6 +20,9 @@
     },
     "target_mapping": {
       "type": "Hash"
+    },
+    "regex_mapping": {
+      "type": "Optional[Hash]"
     }
   },
   "private": true

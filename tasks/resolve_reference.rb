@@ -12,6 +12,8 @@ class Terraform < TaskHelper
 
   def resolve_reference(opts)
     template = opts.delete(:target_mapping) || {}
+    regexes = opts.delete(:regex_mapping) || {}
+
     unless template.key?(:uri) || template.key?(:name)
       msg = "You must provide a 'name' or 'uri' in 'target_mapping' for the Terraform plugin"
       raise TaskHelper::Error.new(msg, 'bolt-plugin/validation-error')
@@ -31,7 +33,16 @@ class Terraform < TaskHelper
       end
     end
 
-    target_data.map { |data| apply_mapping(template, data) }
+    mapped_data = target_data.map { |data| apply_mapping(template, data) }
+
+    #apply the regex to the raw target_data 
+    mapped_data[0].each { |k, v|
+      if regexes.key?(k)
+        mapped_data[0][k] = v.match(/#{regexes[k]}/)[0]
+      end
+    }
+
+    mapped_data
   end
 
   def load_statefile(opts)
